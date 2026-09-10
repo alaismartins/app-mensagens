@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Central de Mensagens · Laís Martins</title>
+<meta name="description" content="Mensagens prontas para o WhatsApp — Lash Laís Martins">
+<meta name="theme-color" content="#96586B">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root{
+    --bg:#FAF6F3;
+    --bg-alt:#F4E9E5;
+    --surface:#FFFFFF;
+    --border:#EADFDA;
+    --text:#2B2320;
+    --text-soft:#7A6C66;
+    --text-faint:#A79A93;
+    --accent:#96586B;
+    --accent-dark:#6E3B4C;
+    --accent-tint:#F3E4E8;
+    --gold:#B8935A;
+    --gold-tint:#F6EEE0;
+    --whatsapp:#25D366;
+    --whatsapp-dark:#1DA851;
+    --danger:#B4483F;
+    --radius-s:10px;
+    --radius-m:16px;
+    --radius-l:24px;
+    --shadow:0 1px 2px rgba(43,35,32,.04), 0 6px 20px rgba(43,35,32,.05);
+    --serif: ui-serif, Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:64px;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--accent-dark); outline-offset:2px;}
+
+  /* ---------- Header / Hero ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    padding:34px 20px 22px;
+    border-bottom:1px solid var(--border);
+    position:relative;
+  }
+  .hero-top{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:640px; margin:0 auto 18px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{
+    width:42px;height:42px;border-radius:12px;
+    background:var(--accent); color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif); font-style:italic; font-weight:700; font-size:20px;
+    flex-shrink:0;
+  }
+  .brand-text .kicker{
+    font-size:11px; letter-spacing:.02em; color:var(--text-soft); margin:0 0 1px;
+  }
+  .brand-text .name{
+    font-family:var(--serif); font-style:italic; font-size:19px; margin:0; color:var(--accent-dark); line-height:1.1;
+  }
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--border); background:var(--surface);
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px; cursor:pointer; color:var(--text);
+    transition:background .15s ease, transform .1s ease;
+  }
+  .icon-btn:hover{background:var(--accent-tint);}
+  .icon-btn:active{transform:scale(.94);}
+
+  .hero-title{max-width:640px;margin:0 auto;}
+  .hero-title h1{
+    font-family:var(--serif); font-weight:600; font-style:italic;
+    font-size:clamp(26px,6vw,32px); margin:0 0 6px; color:var(--text); line-height:1.15;
+  }
+  .hero-title p{margin:0; color:var(--text-soft); font-size:14.5px; max-width:46ch; line-height:1.5;}
+
+  .quick-actions{
+    max-width:640px;margin:20px auto 0; display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .qa-btn{
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:999px; padding:9px 14px; font-size:13.5px; font-weight:600;
+    border:1px solid var(--border); background:var(--surface); color:var(--text);
+    cursor:pointer; white-space:nowrap;
+  }
+  .qa-btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .qa-btn.primary:hover{background:var(--accent-dark);}
+  .qa-btn .copy-mini{
+    border:none;background:transparent;color:inherit;font-size:14px;
+    padding:0 0 0 2px; cursor:pointer; opacity:.85; display:flex;align-items:center;
+  }
+  .qa-btn:hover{background:var(--accent-tint);}
+  .qa-btn.primary:hover .copy-mini{opacity:1;}
+
+  /* ---------- Client bar ---------- */
+  .client-bar{
+    max-width:640px;margin:14px auto 0; background:var(--surface);
+    border:1px dashed var(--border); border-radius:var(--radius-m);
+    padding:10px 14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .client-bar label{font-size:12.5px; color:var(--text-soft); flex-shrink:0;}
+  .client-bar input{
+    flex:1; min-width:160px; border:1px solid var(--border); border-radius:var(--radius-s);
+    padding:7px 10px; font-size:13.5px; background:var(--bg); color:var(--text);
+  }
+  .client-bar .hint{width:100%; font-size:11.5px; color:var(--text-faint); margin-top:2px;}
+
+  /* ---------- Search ---------- */
+  .search-wrap{max-width:640px;margin:16px auto 0; padding:0 0;}
+  .search-wrap input{
+    width:100%; padding:11px 14px; border-radius:var(--radius-m);
+    border:1px solid var(--border); background:var(--surface); font-size:14.5px; color:var(--text);
+  }
+
+  /* ---------- Main / sections ---------- */
+  main{max-width:640px;margin:0 auto; padding:18px 20px 40px;}
+  .toolbar-row{display:flex; justify-content:space-between; align-items:center; margin:6px 2px 14px;}
+  .toolbar-row .muted-btn{
+    background:none;border:none;color:var(--accent-dark);font-size:13px;font-weight:600;cursor:pointer;padding:4px 2px;
+  }
+
+  .section{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-l);
+    margin-bottom:14px; overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .section-head{
+    display:flex; align-items:center; gap:12px; padding:16px 18px; cursor:pointer;
+    -webkit-user-select:none; user-select:none;
+  }
+  .section-icon{
+    width:38px;height:38px;border-radius:11px;background:var(--gold-tint);
+    display:flex;align-items:center;justify-content:center;font-size:18px; flex-shrink:0;
+  }
+  .section-meta{flex:1; min-width:0;}
+  .section-meta h2{margin:0 0 2px; font-size:16.5px; font-family:var(--serif); font-weight:600;}
+  .section-meta p{margin:0; font-size:12.5px; color:var(--text-soft); line-height:1.4;}
+  .section-count{
+    font-size:11.5px; color:var(--text-soft); background:var(--bg-alt);
+    border-radius:999px; padding:3px 9px; flex-shrink:0;
+  }
+  .chevron{
+    width:20px;height:20px; flex-shrink:0; color:var(--text-soft);
+    transition:transform .2s ease;
+  }
+  .section.open .chevron{transform:rotate(180deg);}
+  .section-body{
+    padding:0 18px 18px; display:none;
+    border-top:1px solid var(--border);
+  }
+  .section.open .section-body{display:block; padding-top:14px;}
+
+  .del-section-btn{
+    border:none;background:none;color:var(--text-faint); font-size:15px; cursor:pointer;
+    padding:6px; flex-shrink:0;
+  }
+  .del-section-btn:hover{color:var(--danger);}
+
+  /* vars row (pricing / date-time inputs) */
+  .vars-row{
+    display:flex; flex-wrap:wrap; gap:10px; background:var(--bg-alt);
+    border-radius:var(--radius-m); padding:12px; margin-bottom:14px;
+  }
+  .vars-field{display:flex; flex-direction:column; gap:4px; flex:1; min-width:130px;}
+  .vars-field label{font-size:11.5px; color:var(--text-soft); font-weight:600;}
+  .vars-field select, .vars-field input{
+    border:1px solid var(--border); border-radius:var(--radius-s); padding:8px 10px;
+    font-size:13.5px; background:var(--surface); color:var(--text); width:100%;
+  }
+
+  .subgroup-title{
+    font-size:12px; font-weight:700; text-transform:none; letter-spacing:.01em;
+    color:var(--accent-dark); margin:16px 0 8px; padding-left:2px;
+  }
+  .subgroup-title:first-child{margin-top:0;}
+
+  .msg-card{
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-m);
+    padding:14px; margin-bottom:10px;
+  }
+  .msg-tag{
+    display:inline-block; font-size:11px; font-weight:700; color:var(--accent-dark);
+    background:var(--accent-tint); border-radius:999px; padding:3px 10px; margin-bottom:8px;
+  }
+  .msg-text{
+    font-size:14.5px; line-height:1.55; white-space:pre-wrap; margin:0 0 12px; color:var(--text);
+  }
+  .msg-edited-note{font-size:11px; color:var(--gold); margin:-6px 0 10px; font-style:italic;}
+  .msg-textarea{
+    width:100%; min-height:110px; border:1px solid var(--accent); border-radius:var(--radius-s);
+    padding:10px; font-size:14.5px; font-family:var(--sans); color:var(--text); margin-bottom:10px;
+    resize:vertical; background:var(--surface);
+  }
+  .msg-actions{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+  .act-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    border-radius:var(--radius-s); border:1px solid var(--border); background:var(--surface);
+    color:var(--text); font-size:13px; font-weight:600; padding:8px 12px; cursor:pointer;
+  }
+  .act-btn:hover{background:var(--accent-tint);}
+  .act-btn.whats{background:var(--whatsapp); border-color:var(--whatsapp); color:#fff;}
+  .act-btn.whats:hover{background:var(--whatsapp-dark);}
+  .act-btn.save{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .act-btn.save:hover{background:var(--accent-dark);}
+  .act-btn.ghost{border-color:transparent; background:transparent; color:var(--text-soft);}
+  .act-btn.ghost:hover{color:var(--danger); background:transparent;}
+  .spacer{flex:1;}
+
+  .add-msg-btn{
+    width:100%; border:1.5px dashed var(--border); background:transparent; color:var(--accent-dark);
+    border-radius:var(--radius-m); padding:11px; font-size:13.5px; font-weight:600; cursor:pointer; margin-top:4px;
+  }
+  .add-msg-btn:hover{background:var(--accent-tint); border-color:var(--accent);}
+
+  .add-section-card{
+    border:1.5px dashed var(--border); border-radius:var(--radius-l); background:transparent;
+    color:var(--accent-dark); padding:16px; text-align:center; font-weight:600; font-size:14px;
+    cursor:pointer; width:100%; margin-top:4px;
+  }
+  .add-section-card:hover{background:var(--accent-tint); border-color:var(--accent);}
+
+  /* ---------- Footer ---------- */
+  footer{max-width:640px;margin:8px auto 0; padding:10px 20px 30px; text-align:center;}
+  .footer-links{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:10px;}
+  .footer-links button, .footer-links a{
+    background:none; border:none; color:var(--text-soft); font-size:12.5px; cursor:pointer; text-decoration:underline;
+    text-underline-offset:2px;
+  }
+  footer .credit{font-size:11.5px; color:var(--text-faint);}
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(43,35,32,.45); display:none;
+    align-items:flex-end; justify-content:center; z-index:100; padding:0;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{
+    background:var(--surface); width:100%; max-width:520px; border-radius:22px 22px 0 0;
+    padding:22px 20px calc(22px + env(safe-area-inset-bottom)); max-height:88vh; overflow-y:auto;
+  }
+  @media (min-width:640px){
+    .modal-overlay{align-items:center;}
+    .modal{border-radius:var(--radius-l);}
+  }
+  .modal h3{font-family:var(--serif); font-size:19px; margin:0 0 4px;}
+  .modal .modal-sub{font-size:12.5px; color:var(--text-soft); margin:0 0 16px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:12.5px; font-weight:700; color:var(--text-soft); margin-bottom:5px;}
+  .field input, .field textarea, .field select{
+    width:100%; border:1px solid var(--border); border-radius:var(--radius-s);
+    padding:10px 12px; font-size:14.5px; font-family:inherit; color:var(--text); background:var(--bg);
+  }
+  .field textarea{min-height:100px; resize:vertical;}
+  .field .tip{font-size:11.5px; color:var(--text-faint); margin-top:5px;}
+  .modal-actions{display:flex; gap:10px; margin-top:6px;}
+  .modal-actions button{flex:1; padding:12px; border-radius:var(--radius-s); font-size:14px; font-weight:700; cursor:pointer;}
+  .modal-actions .cancel{background:var(--bg-alt); border:1px solid var(--border); color:var(--text);}
+  .modal-actions .confirm{background:var(--accent); border:1px solid var(--accent); color:#fff;}
+  .modal-actions .confirm.danger{background:var(--danger); border-color:var(--danger);}
+
+  /* ---------- Toast ---------- */
+  #toast{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
+    background:var(--text); color:#fff; font-size:13.5px; font-weight:600;
+    padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease; z-index:200; box-shadow:0 8px 24px rgba(0,0,0,.2);
+    max-width:88vw; text-align:center;
+  }
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  .empty-msg{font-size:13px; color:var(--text-faint); text-align:center; padding:10px 0 4px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="brand">
+      <div class="brand-mark">L</div>
+      <div class="brand-text">
+        <p class="kicker">Lash Laís Martins · Macatuba SP</p>
+        <p class="name">Central de Mensagens</p>
+      </div>
+    </div>
+    <button class="icon-btn" id="btnSettings" title="Configurações" aria-label="Configurações">⚙️</button>
+  </div>
+  <div class="hero-title">
+    <h1>Mensagens prontas para o WhatsApp</h1>
+    <p>Escolha, copie ou edite — e envie para a cliente em segundos. Suas próprias mensagens, sempre à mão.</p>
+  </div>
+
+  <div class="quick-actions">
+    <a class="qa-btn primary" id="btnCatalogo" href="https://alaismartins.github.io/alaismartins/" target="_blank" rel="noopener">
+      📖 Abrir catálogo
+      <button class="copy-mini" data-copy="https://alaismartins.github.io/alaismartins/" title="Copiar link do catálogo" aria-label="Copiar link do catálogo">📋</button>
+    </a>
+    <button class="qa-btn" data-copy="https://instagram.com/thebeauty_.space">
+      📷 @thebeauty_.space <span class="copy-mini">📋</span>
+    </button>
+    <button class="qa-btn" data-copy="https://instagram.com/laismartins_beauty">
+      📷 @laismartins_beauty <span class="copy-mini">📋</span>
+    </button>
+  </div>
+
+  <div class="client-bar">
+    <label for="clienteNumero">Nº da cliente (opcional)</label>
+    <input type="tel" id="clienteNumero" placeholder="Ex: 14 99999-0000" inputmode="tel">
+    <div class="hint">Preenchido, o botão do WhatsApp abre direto na conversa dela. Vazio, você escolhe o contato na hora de enviar. Não é salvo.</div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" id="searchInput" placeholder="Buscar em todas as mensagens…">
+  </div>
+</div>
+
+<main>
+  <div class="toolbar-row">
+    <span style="font-size:12.5px;color:var(--text-soft);" id="resultCount"></span>
+    <button class="muted-btn" id="btnToggleAll">Abrir tudo</button>
+  </div>
+  <div id="sectionsRoot"></div>
+  <button class="add-section-card" id="btnAddSection">＋ Nova seção de mensagens</button>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <button id="btnExport">Exportar backup (.json)</button>
+    <button id="btnImport">Importar backup</button>
+    <button id="btnReset">Restaurar padrão</button>
+    <a href="instalar.html">Como instalar o app</a>
+  </div>
+  <p class="credit">Central de Mensagens · Lash Laís Martins</p>
+</footer>
+
+<input type="file" id="importFile" accept="application/json" style="display:none">
+
+<!-- ===== Modal: add/edit section ===== -->
+<div class="modal-overlay" id="modalSection">
+  <div class="modal">
+    <h3>Nova seção de mensagens</h3>
+    <p class="modal-sub">Crie uma categoria própria — depois é só adicionar as mensagens dentro dela.</p>
+    <div class="field">
+      <label for="secIcone">Ícone (um emoji)</label>
+      <input type="text" id="secIcone" maxlength="4" placeholder="💬">
+    </div>
+    <div class="field">
+      <label for="secTitulo">Nome da seção</label>
+      <input type="text" id="secTitulo" placeholder="Ex: Pós-procedimento">
+    </div>
+    <div class="field">
+      <label for="secDescricao">Descrição curta (opcional)</label>
+      <input type="text" id="secDescricao" placeholder="Do que se trata essa seção">
+    </div>
+    <div class="modal-actions">
+      <button class="cancel" data-close="modalSection">Cancelar</button>
+      <button class="confirm" id="confirmAddSection">Criar seção</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: add message ===== -->
+<div class="modal-overlay" id="modalMessage">
+  <div class="modal">
+    <h3>Nova mensagem</h3>
+    <p class="modal-sub" id="msgModalSub">Escreva a mensagem que vai entrar nessa seção.</p>
+    <div class="field">
+      <label for="msgTag">Rótulo (opcional)</label>
+      <input type="text" id="msgTag" placeholder="Ex: Tom mais formal">
+    </div>
+    <div class="field">
+      <label for="msgTexto">Mensagem</label>
+      <textarea id="msgTexto" placeholder="Digite a mensagem…"></textarea>
+      <p class="tip" id="msgTokensTip"></p>
+    </div>
+    <div class="modal-actions">
+      <button class="cancel" data-close="modalMessage">Cancelar</button>
+      <button class="confirm" id="confirmAddMessage">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: confirm (generic) ===== -->
+<div class="modal-overlay" id="modalConfirm">
+  <div class="modal">
+    <h3 id="confirmTitle">Confirmar</h3>
+    <p class="modal-sub" id="confirmBody"></p>
+    <div class="modal-actions">
+      <button class="cancel" data-close="modalConfirm">Cancelar</button>
+      <button class="confirm danger" id="confirmActionBtn">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== DADOS PADRÃO ===================== */
+
+const CATALOGO_URL = "https://alaismartins.github.io/alaismartins/";
+const ENDERECO = "Rua Paraguai, 165 - Jd Europa, Macatuba/SP";
+const MAPS_URL = "https://maps.app.goo.gl/xFdBdNLptnCy6RdCA";
+
+function defaultServices(){
+  return [
+    {id:"lash-lifting", nome:"Lash Lifting", precoAplicacao:100, precoManutencao:null},
+    {id:"foreyes-preto", nome:"For Eyes Preto", precoAplicacao:150, precoManutencao:100},
+    {id:"foreyes-marrom", nome:"For Eyes Marrom", precoAplicacao:150, precoManutencao:100},
+    {id:"fio-a-fio", nome:"Fio a Fio Clássico", precoAplicacao:100, precoManutencao:70},
+    {id:"volume-egipcio", nome:"Volume Egípcio", precoAplicacao:130, precoManutencao:90},
+    {id:"volume-brasileiro", nome:"Volume Brasileiro", precoAplicacao:110, precoManutencao:80}
+  ];
+}
+
+function msg(tag, text){ return {id:uid(), tag:tag, text:text, customText:null}; }
+
+function defaultSections(){
+  return [
+    {
+      id:"primeiro-contato", icone:"👋", titulo:"Primeiro Contato",
+      descricao:"Boas-vindas, disponibilidade de horários e primeiro direcionamento.",
+      isPricing:false, varsConfig:[], vars:{}, grouped:false,
+      messages:[
+        msg("Profissional","Olá! 😊 Tudo bem? Aqui é a Laís, do studio de cílios. Recebi seu contato e será um prazer atendê-la! No momento tenho horários disponíveis esta semana — posso te passar as opções? 📅"),
+        msg("Cordial","Oi! 👋 Que bom ter você por aqui! Sou a Laís, especialista em extensão de cílios e Lash Lifting. Me conta: você já sabe qual serviço tem interesse ou prefere que eu te apresente as opções? ✨"),
+        msg("Acolhedora","Olá! 💕 Seja muito bem-vinda! Aqui é a Laís. Fico feliz em te ajudar a escolher o melhor para o seu olhar. Você gostaria de ver os valores dos serviços ou já tem um horário em mente? 👀"),
+        msg("Amigável","Oii, tudo bem?? 🥰 Aqui é a Laís! Que alegria receber sua mensagem! Me conta rapidinho o que você está procurando que eu já te passo os detalhes (e se quiser, já vejo um horário certinho pra você) 📆💖"),
+        msg("Bem próxima","Oiii, flor! 😍💕 Tudo bem por aí? Aqui é a Laís! Fiquei super feliz com seu contato! Me conta, já bateu vontade de dar um upgrade no olhar? Tenho horário essa semana e adoraria te receber no studio 🥰✨")
+      ]
+    },
+    {
+      id:"consulta-valores", icone:"💰", titulo:"Consulta de Valores",
+      descricao:"Selecione o serviço e o tipo — o valor entra sozinho na mensagem.",
+      isPricing:true, varsConfig:[], vars:{servicoId:"lash-lifting", tipo:"Aplicação"}, grouped:false,
+      messages:[
+        msg("Profissional","Olá! Obrigada pelo interesse 😊 O valor para {{servico}} ({{tipo}}) é de {{preco}}. Posso te ajudar a encontrar um horário disponível? 📅"),
+        msg("Cordial","Oi! Sobre o serviço {{servico}}, o investimento para {{tipo}} é de {{preco}} ✨ Qualquer dúvida sobre a técnica, é só me chamar!"),
+        msg("Acolhedora","Olá! 💕 O {{servico}} sai por {{preco}} ({{tipo}}). Esse valor já inclui toda a atenção e cuidado que seu olhar merece 🥰 Vamos agendar?"),
+        msg("Amigável","Oii! Sobre o {{servico}}: o valor é {{preco}} pra {{tipo}} 💖 Já fecha comigo? Tenho certeza que você vai amar o resultado 😍"),
+        msg("Bem próxima","Oiii, flor! 🥰 {{servico}} fica {{preco}} ({{tipo}}) — e olha, vale muito a pena, o resultado é incrível! 💕✨ Bora marcar seu horário?")
+      ]
+    },
+    {
+      id:"catalogo", icone:"📖", titulo:"Catálogo de Serviços",
+      descricao:"Envie o catálogo com fotos e valores para a cliente escolher o estilo.",
+      isPricing:false, varsConfig:[], vars:{}, grouped:false,
+      messages:[
+        msg("Profissional","Olá! 😊 Preparei um catálogo completo com todos os nossos serviços de cílios, fotos e valores. Você pode conferir por aqui: "+CATALOGO_URL+" Qualquer dúvida, estou à disposição! 📋"),
+        msg("Cordial","Oi! Para você visualizar todas as técnicas de extensão de cílios e Lash Lifting que trabalho, separei nosso catálogo completo com fotos 📸✨ "+CATALOGO_URL+" Dá uma olhada e me conta qual mais chamou sua atenção!"),
+        msg("Acolhedora","Olá! 💕 Dá uma espiadinha no nosso catálogo — tem fotos de todos os estilos de cílios e os valores certinhos: "+CATALOGO_URL+" Assim fica mais fácil escolher o que combina com você! 👀"),
+        msg("Amigável","Oii! Vem ver como ficam lindos os cílios nos nossos trabalhos 😍 Catálogo completo aqui: "+CATALOGO_URL+" Qualquer estilo que você curtir, só me chamar que a gente agenda! 💖"),
+        msg("Bem próxima","Oiii, flor! Separei um catálogo lindo pra você se apaixonar igual eu 🥰✨ "+CATALOGO_URL+" Dá uma olhadinha com calma e me conta qual olhar combina mais com você, tá? 💕")
+      ]
+    },
+    {
+      id:"confirmacao", icone:"✅", titulo:"Confirmação de Agendamento",
+      descricao:"Confirme dia, horário e serviço agendado.",
+      isPricing:false,
+      varsConfig:[
+        {key:"servico", label:"Serviço", type:"text"},
+        {key:"dia", label:"Dia", type:"text"},
+        {key:"horario", label:"Horário", type:"text"}
+      ],
+      vars:{servico:"", dia:"", horario:""}, grouped:false,
+      messages:[
+        msg("Profissional","Olá! 😊 Confirmando seu horário de {{servico}}: {{dia}}, às {{horario}}. Te aguardo no studio! Qualquer imprevisto, me avise com antecedência 🙏"),
+        msg("Cordial","Oi! Passando para confirmar seu agendamento de {{servico}} no dia {{dia}}, às {{horario}} ✅ Endereço: "+ENDERECO+". Até lá! 😊"),
+        msg("Acolhedora","Olá! 💕 Seu horário de {{servico}} está confirmado para {{dia}} às {{horario}}. Estou ansiosa para te receber! Qualquer coisa, me chama por aqui 📲"),
+        msg("Amigável","Oii! Só confirmando aqui nosso horário: {{dia}}, {{horario}} — {{servico}} ✨ Já vou deixar tudo prontinho pra te receber bem! Até lá! 🥰"),
+        msg("Bem próxima","Oiii flor! Confirmadíssimo nosso encontro: {{dia}} às {{horario}} 💕 Vamos deixar seu olhar ainda mais lindo com {{servico}}! Até já! 😍✨")
+      ]
+    },
+    {
+      id:"lembrete", icone:"⏰", titulo:"Lembrete de Horário",
+      descricao:"Lembrete enviado um dia antes do atendimento.",
+      isPricing:false,
+      varsConfig:[
+        {key:"servico", label:"Serviço", type:"text"},
+        {key:"horario", label:"Horário", type:"text"}
+      ],
+      vars:{servico:"", horario:""}, grouped:false,
+      messages:[
+        msg("Profissional","Olá! 😊 Passando para lembrar que amanhã, às {{horario}}, você tem horário marcado comigo ({{servico}}). Nos vemos em breve! 🙏"),
+        msg("Cordial","Oi! Só um lembrete gentil: seu horário é amanhã às {{horario}} ✅ Qualquer imprevisto, me avise com antecedência para reorganizarmos, tudo bem?"),
+        msg("Acolhedora","Olá! 💕 Lembrete rapidinho: amanhã é o seu dia! Te espero às {{horario}} para deixar seu olhar ainda mais lindo ✨"),
+        msg("Amigável","Oii! Passando só pra lembrar: amanhã é nosso horário, às {{horario}} 🥰 Já estou ansiosa pra te ver! Até lá 💖"),
+        msg("Bem próxima","Oiii flor! 😍 Lembrete carinhoso: amanhã tem cílios novos, às {{horario}}! Mal posso esperar pra cuidar de você 💕✨ Até amanhã!")
+      ]
+    },
+    {
+      id:"localizacao", icone:"📍", titulo:"Localização do Studio",
+      descricao:"Endereço e mapa para a cliente chegar sem dificuldade.",
+      isPricing:false, varsConfig:[], vars:{}, grouped:false,
+      messages:[
+        msg("Profissional","Olá! 😊 Segue o endereço do studio: "+ENDERECO+" 📍 Localização no mapa: "+MAPS_URL+" Até breve!"),
+        msg("Cordial","Oi! Para facilitar, aqui está nossa localização 📍 "+ENDERECO+" "+MAPS_URL+" Qualquer dúvida para chegar, me chame!"),
+        msg("Acolhedora","Olá! 💕 Estamos na "+ENDERECO+". Aqui está o mapa para facilitar: "+MAPS_URL+" Te espero! ✨"),
+        msg("Amigável","Oii! 📍 Segue nosso endereçinho: "+ENDERECO+" "+MAPS_URL+" Qualquer coisa no caminho, só me chamar! 🥰"),
+        msg("Bem próxima","Oiii flor! 💕 Endereço aqui pra você não se perder: "+ENDERECO+" "+MAPS_URL+" Mal posso esperar pra te ver! 😍✨")
+      ]
+    },
+    {
+      id:"retomar-contato", icone:"💌", titulo:"Retomar Contato",
+      descricao:"Reative clientes sumidas, lembre manutenções e converta interessadas.",
+      isPricing:false, varsConfig:[], vars:{}, grouped:true,
+      messages:[
+        msg("Cliente sumida","Olá! 😊 Notei que já faz um tempinho desde sua última visita ao studio. Ficamos com saudade! Que tal agendarmos um novo horário para renovar seus cílios? 💕"),
+        msg("Cliente sumida","Oi! Tudo bem? Faz um tempo que não te vejo por aqui 🥺 Separei um horário especial pra você — vamos marcar?"),
+        msg("Cliente sumida","Olá! 💕 Sentimos sua falta no studio! Que tal já garantir seu próximo horário? Tenho certeza que você vai amar renovar o olhar ✨"),
+        msg("Cliente sumida","Oii! Cadê você?? 🥰 Faz tempinho que a gente não se vê! Bora marcar um horário pra cuidar desse olhar? 💖"),
+        msg("Cliente sumida","Oiii flor, saudades de você aqui no studio! 😍💕 Bora agendar um horário pra gente colocar o papo em dia (e o olhar em ordem)? 🥰✨"),
+        msg("Esqueceu a manutenção","Olá! 😊 Passando para lembrar que já está no período ideal para a manutenção dos seus cílios. Quer que eu já separe um horário para você? 📅"),
+        msg("Esqueceu a manutenção","Oi! Notei que sua manutenção já está pertinho do prazo ideal (2 a 3 semanas) ✅ Vamos agendar para manter o resultado lindo?"),
+        msg("Esqueceu a manutenção","Olá! 💕 Seus cílios já merecem um retoque! Que tal agendarmos sua manutenção essa semana? ✨"),
+        msg("Esqueceu a manutenção","Oii! Passando pra lembrar da sua manutenção, hein! 🥰 Vamos marcar antes que os fiozinhos comecem a cair? 💖"),
+        msg("Esqueceu a manutenção","Oiii flor! Sua manutenção está te chamando! 😍 Vem logo garantir seu horário pra manter esse olhar poderoso 💕✨"),
+        msg("Cliente em potencial","Olá! 😊 Obrigada por conhecer nosso trabalho! Se tiver interesse em experimentar a extensão de cílios ou o Lash Lifting, será um prazer te atender. Posso te enviar os valores? 💕"),
+        msg("Cliente em potencial","Oi! Vi que você demonstrou interesse nos meus trabalhos 😊 Fico à disposição para tirar dúvidas e te ajudar a escolher o estilo ideal para você!"),
+        msg("Cliente em potencial","Olá! 💕 Que tal conhecer de perto o resultado da extensão de cílios? Tenho certeza que você vai se apaixonar! Posso te mandar mais detalhes? ✨"),
+        msg("Cliente em potencial","Oii! Vi que você curtiu meu trabalho por aqui 🥰 Bora marcar um horário pra você experimentar? Tenho certeza que vai amar! 💖"),
+        msg("Cliente em potencial","Oiii! 😍 Fico super feliz que você chegou até aqui! Vem conhecer o studio e deixar seu olhar mais poderoso — prometo que você vai se apaixonar 💕✨")
+      ]
+    },
+    {
+      id:"datas-especiais", icone:"🎉", titulo:"Datas Especiais",
+      descricao:"Felicitações com um convite carinhoso para se cuidar na data.",
+      isPricing:false, varsConfig:[], vars:{}, grouped:false,
+      messages:[
+        msg("Natal","Feliz Natal! 🎄✨ Que essa data seja repleta de amor e alegria! Aproveite para renovar seus cílios e arrasar nas festas de fim de ano — tenho horários especiais essa semana 💕🎁"),
+        msg("Ano Novo","Feliz Ano Novo! 🎆💕 Que o novo ano chegue cheio de coisas boas! Que tal começar com um olhar renovado? Vou adorar te receber no studio ✨"),
+        msg("Páscoa","Feliz Páscoa! 🐰🍫 Que esse momento seja doce e leve! Aproveite pra se presentear com uma manutenção ou um novo estilo de cílios 💕✨"),
+        msg("Dia das Mães","Feliz Dia das Mães! 💐💕 Você merece todo cuidado do mundo! Que tal se presentear (ou presentear alguém especial) com uma extensão de cílios? Tenho horários disponíveis 🥰"),
+        msg("Dia dos Namorados","Feliz Dia dos Namorados! 💕✨ Amor também se demonstra em autocuidado! Aproveite pra arrasar no encontro com um olhar novo — bora agendar? 😍")
+      ]
+    }
+  ];
+}
+
+function defaultData(){
+  return { services: defaultServices(), sections: defaultSections() };
+}
+
+/* ===================== ESTADO / STORAGE ===================== */
+
+const STORAGE_KEY = "laisCentralMensagens_v1";
+let data = loadData();
+let openSections = new Set([data.sections[0] ? data.sections[0].id : null]);
+let editingId = null;
+let searchQuery = "";
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultData();
+    const parsed = JSON.parse(raw);
+    if(!parsed.services || !parsed.sections) return defaultData();
+    return parsed;
+  }catch(e){
+    return defaultData();
+  }
+}
+
+function saveData(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }catch(e){
+    showToast("Não foi possível salvar (armazenamento cheio ou bloqueado).");
+  }
+}
+
+/* ===================== HELPERS DE TEXTO ===================== */
+
+function formatPreco(valor){
+  if(valor === null || valor === undefined) return "[valor]";
+  const n = Number(valor);
+  if(Number.isInteger(n)) return "R$ " + n;
+  return "R$ " + n.toFixed(2).replace(".", ",");
+}
+
+function pricingContext(section){
+  const services = data.services;
+  let svc = services.find(s => s.id === section.vars.servicoId) || services[0];
+  let tipo = section.vars.tipo || "Aplicação";
+  if(tipo === "Manutenção" && (svc.precoManutencao === null || svc.precoManutencao === undefined)){
+    tipo = "Aplicação";
+  }
+  const precoNum = tipo === "Manutenção" ? svc.precoManutencao : svc.precoAplicacao;
+  return { servico: svc.nome, tipo: tipo, preco: formatPreco(precoNum) };
+}
+
+function applyVars(text, ctx, varsConfig){
+  return text.replace(/\{\{(\w+)\}\}/g, function(m, key){
+    const val = ctx[key];
+    if(val !== undefined && val !== null && String(val).trim() !== "") return val;
+    const conf = (varsConfig||[]).find(v => v.key === key);
+    const label = conf ? conf.label : key;
+    return "[" + label + "]";
+  });
+}
+
+function computeMessageText(section, message){
+  if(message.customText !== null && message.customText !== undefined){
+    return message.customText;
+  }
+  let ctx = {};
+  if(section.isPricing){
+    ctx = pricingContext(section);
+  } else {
+    ctx = section.vars || {};
+  }
+  return applyVars(message.text, ctx, section.varsConfig);
+}
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+/* ===================== CLIPBOARD / WHATSAPP / TOAST ===================== */
+
+let toastTimer = null;
+function showToast(text){
+  const t = document.getElementById("toast");
+  t.textContent = text;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+
+async function copyText(text){
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast("Mensagem copiada! 📋");
+  }catch(e){
+    try{
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast("Mensagem copiada! 📋");
+    }catch(e2){
+      showToast("Não foi possível copiar. Selecione o texto manualmente.");
+    }
+  }
+}
+
+function whatsappUrl(text){
+  const raw = (document.getElementById("clienteNumero").value || "").replace(/\D/g,"");
+  const encoded = encodeURIComponent(text);
+  if(raw.length >= 10){
+    const withCountry = raw.length <= 11 ? "55" + raw : raw;
+    return "https://wa.me/" + withCountry + "?text=" + encoded;
+  }
+  return "https://api.whatsapp.com/send?text=" + encoded;
+}
+
+/* ===================== RENDER ===================== */
+
+function tokensHintFor(section){
+  if(!section) return "";
+  if(section.isPricing) return "Nessa seção o valor é calculado automaticamente pelo serviço selecionado acima.";
+  if(section.varsConfig && section.varsConfig.length){
+    const list = section.varsConfig.map(v => "{{"+v.key+"}}").join(", ");
+    return "Você pode usar: " + list + " — preenchidos pelos campos no topo da seção.";
+  }
+  return "";
+}
+
+function render(){
+  renderSections();
+  const root = document.getElementById("sectionsRoot");
+  document.getElementById("btnToggleAll").textContent =
+    (openSections.size >= data.sections.length) ? "Fechar tudo" : "Abrir tudo";
+}
+
+function matchesSearch(message, section){
+  if(!searchQuery) return true;
+  const q = searchQuery.toLowerCase();
+  const text = computeMessageText(section, message).toLowerCase();
+  return text.includes(q) || (message.tag||"").toLowerCase().includes(q) || section.titulo.toLowerCase().includes(q);
+}
+
+function renderSections(){
+  const root = document.getElementById("sectionsRoot");
+  root.innerHTML = "";
+  let totalShown = 0;
+  let totalAll = 0;
+
+  data.sections.forEach(function(section){
+    const isOpen = openSections.has(section.id) || !!searchQuery;
+    const filteredMessages = section.messages.filter(m => matchesSearch(m, section));
+    totalAll += section.messages.length;
+    totalShown += filteredMessages.length;
+    if(searchQuery && filteredMessages.length === 0) return;
+
+    const el = document.createElement("div");
+    el.className = "section" + (isOpen ? " open" : "");
+    el.dataset.sectionId = section.id;
+
+    const head = document.createElement("div");
+    head.className = "section-head";
+    head.innerHTML =
+      '<div class="section-icon">'+escapeHtml(section.icone||"💬")+'</div>'+
+      '<div class="section-meta"><h2>'+escapeHtml(section.titulo)+'</h2><p>'+escapeHtml(section.descricao||"")+'</p></div>'+
+      '<span class="section-count">'+section.messages.length+'</span>'+
+      '<button class="del-section-btn" data-action="del-section" title="Remover seção">🗑️</button>'+
+      '<svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    head.addEventListener("click", function(e){
+      if(e.target.closest("[data-action='del-section']")) return;
+      toggleSection(section.id);
+    });
+    head.querySelector("[data-action='del-section']").addEventListener("click", function(e){
+      e.stopPropagation();
+      confirmDialog("Remover seção", 'Remover "'+section.titulo+'" e todas as suas mensagens?', function(){
+        data.sections = data.sections.filter(s => s.id !== section.id);
+        saveData(); render();
+      });
+    });
+    el.appendChild(head);
+
+    const body = document.createElement("div");
+    body.className = "section-body";
+
+    if(section.isPricing){
+      body.appendChild(buildPricingVarsRow(section));
+    } else if(section.varsConfig && section.varsConfig.length){
+      body.appendChild(buildVarsRow(section));
+    }
+
+    if(section.grouped){
+      const groups = {};
+      const order = [];
+      filteredMessages.forEach(m => {
+        if(!groups[m.tag]){ groups[m.tag]=[]; order.push(m.tag); }
+        groups[m.tag].push(m);
+      });
+      order.forEach(function(tag){
+        const h = document.createElement("div");
+        h.className = "subgroup-title";
+        h.textContent = tag;
+        body.appendChild(h);
+        groups[tag].forEach(m => body.appendChild(buildMessageCard(section, m)));
+      });
+    } else {
+      if(filteredMessages.length === 0){
+        const p = document.createElement("p");
+        p.className = "empty-msg";
+        p.textContent = "Nenhuma mensagem ainda. Adicione a primeira abaixo.";
+        body.appendChild(p);
+      }
+      filteredMessages.forEach(m => body.appendChild(buildMessageCard(section, m)));
+    }
+
+    const addBtn = document.createElement("button");
+    addBtn.className = "add-msg-btn";
+    addBtn.textContent = "＋ Nova mensagem nessa seção";
+    addBtn.addEventListener("click", function(){ openAddMessageModal(section.id); });
+    body.appendChild(addBtn);
+
+    el.appendChild(body);
+    root.appendChild(el);
+  });
+
+  document.getElementById("resultCount").textContent = searchQuery
+    ? (totalShown + " de " + totalAll + " mensagens")
+    : (totalAll + " mensagens em " + data.sections.length + " seções");
+
+  if(editingId){
+    const ta = root.querySelector(".msg-textarea");
+    if(ta){
+      ta.focus();
+      ta.selectionStart = ta.selectionEnd = ta.value.length;
+    }
+  }
+}
+
+function buildPricingVarsRow(section){
+  const row = document.createElement("div");
+  row.className = "vars-row";
+
+  const svcField = document.createElement("div");
+  svcField.className = "vars-field";
+  svcField.innerHTML = '<label>Serviço</label>';
+  const svcSelect = document.createElement("select");
+  data.services.forEach(function(s){
+    const opt = document.createElement("option");
+    opt.value = s.id; opt.textContent = s.nome;
+    if(s.id === section.vars.servicoId) opt.selected = true;
+    svcSelect.appendChild(opt);
+  });
+  svcSelect.addEventListener("change", function(){
+    section.vars.servicoId = svcSelect.value;
+    saveData(); render();
+  });
+  svcField.appendChild(svcSelect);
+  row.appendChild(svcField);
+
+  const svc = data.services.find(s => s.id === section.vars.servicoId) || data.services[0];
+  const tipoField = document.createElement("div");
+  tipoField.className = "vars-field";
+  tipoField.innerHTML = '<label>Tipo</label>';
+  const tipoSelect = document.createElement("select");
+  const opA = document.createElement("option");
+  opA.value = "Aplicação"; opA.textContent = "Aplicação (R$ "+svc.precoAplicacao+")";
+  tipoSelect.appendChild(opA);
+  if(svc.precoManutencao !== null && svc.precoManutencao !== undefined){
+    const opM = document.createElement("option");
+    opM.value = "Manutenção"; opM.textContent = "Manutenção (R$ "+svc.precoManutencao+")";
+    tipoSelect.appendChild(opM);
+  }
+  tipoSelect.value = (section.vars.tipo === "Manutenção" && svc.precoManutencao != null) ? "Manutenção" : "Aplicação";
+  tipoSelect.addEventListener("change", function(){
+    section.vars.tipo = tipoSelect.value;
+    saveData(); render();
+  });
+  tipoField.appendChild(tipoSelect);
+  row.appendChild(tipoField);
+
+  return row;
+}
+
+function buildVarsRow(section){
+  const row = document.createElement("div");
+  row.className = "vars-row";
+  section.varsConfig.forEach(function(v){
+    const field = document.createElement("div");
+    field.className = "vars-field";
+    const label = document.createElement("label");
+    label.textContent = v.label;
+    field.appendChild(label);
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = section.vars[v.key] || "";
+    input.placeholder = v.label;
+    input.addEventListener("input", function(){
+      section.vars[v.key] = input.value;
+      saveData();
+      renderSections();
+    });
+    field.appendChild(input);
+    row.appendChild(field);
+  });
+  return row;
+}
+
+function buildMessageCard(section, message){
+  const card = document.createElement("div");
+  card.className = "msg-card";
+  const displayText = computeMessageText(section, message);
+  const isEditing = editingId === message.id;
+
+  let inner = "";
+  if(message.tag){
+    inner += '<span class="msg-tag">'+escapeHtml(message.tag)+'</span>';
+  }
+  if(!isEditing){
+    inner += '<p class="msg-text">'+escapeHtml(displayText)+'</p>';
+    if(message.customText !== null && message.customText !== undefined){
+      inner += '<p class="msg-edited-note">✎ mensagem personalizada</p>';
+    }
+    inner += '<div class="msg-actions">'+
+      '<button class="act-btn" data-action="copy">📋 Copiar</button>'+
+      '<button class="act-btn" data-action="edit">✏️ Editar</button>'+
+      (message.customText !== null && message.customText !== undefined ? '<button class="act-btn ghost" data-action="restore">↺ Restaurar</button>' : '')+
+      '<div class="spacer"></div>'+
+      '<button class="act-btn ghost" data-action="delete" title="Excluir mensagem">🗑️</button>'+
+      '<button class="act-btn whats" data-action="send">💬 WhatsApp</button>'+
+      '</div>';
+  } else {
+    inner += '<textarea class="msg-textarea">'+escapeHtml(displayText)+'</textarea>'+
+      '<div class="msg-actions">'+
+      '<button class="act-btn ghost" data-action="cancel-edit">Cancelar</button>'+
+      '<div class="spacer"></div>'+
+      '<button class="act-btn save" data-action="save-edit">Salvar</button>'+
+      '</div>';
+  }
+  card.innerHTML = inner;
+
+  if(!isEditing){
+    card.querySelector('[data-action="copy"]').addEventListener("click", function(){
+      copyText(computeMessageText(section, message));
+    });
+    card.querySelector('[data-action="edit"]').addEventListener("click", function(){
+      editingId = message.id;
+      renderSections();
+    });
+    card.querySelector('[data-action="send"]').addEventListener("click", function(){
+      const url = whatsappUrl(computeMessageText(section, message));
+      window.open(url, "_blank");
+    });
+    card.querySelector('[data-action="delete"]').addEventListener("click", function(){
+      confirmDialog("Excluir mensagem", "Remover esta mensagem da seção?", function(){
+        section.messages = section.messages.filter(m => m.id !== message.id);
+        saveData(); render();
+      });
+    });
+    const restoreBtn = card.querySelector('[data-action="restore"]');
+    if(restoreBtn){
+      restoreBtn.addEventListener("click", function(){
+        message.customText = null;
+        saveData(); render();
+      });
+    }
+  } else {
+    const textarea = card.querySelector("textarea");
+    card.querySelector('[data-action="cancel-edit"]').addEventListener("click", function(){
+      editingId = null;
+      renderSections();
+    });
+    card.querySelector('[data-action="save-edit"]').addEventListener("click", function(){
+      message.customText = textarea.value;
+      editingId = null;
+      saveData(); render();
+    });
+  }
+
+  return card;
+}
+
+function toggleSection(id){
+  if(openSections.has(id)) openSections.delete(id);
+  else openSections.add(id);
+  render();
+}
+
+/* ===================== MODALS ===================== */
+
+function openModal(id){ document.getElementById(id).classList.add("show"); }
+function closeModal(id){ document.getElementById(id).classList.remove("show"); }
+
+document.querySelectorAll("[data-close]").forEach(function(btn){
+  btn.addEventListener("click", function(){ closeModal(btn.dataset.close); });
+});
+document.querySelectorAll(".modal-overlay").forEach(function(ov){
+  ov.addEventListener("click", function(e){ if(e.target === ov) ov.classList.remove("show"); });
+});
+
+let confirmCallback = null;
+function confirmDialog(title, body, onConfirm){
+  document.getElementById("confirmTitle").textContent = title;
+  document.getElementById("confirmBody").textContent = body;
+  confirmCallback = onConfirm;
+  openModal("modalConfirm");
+}
+document.getElementById("confirmActionBtn").addEventListener("click", function(){
+  const cb = confirmCallback;
+  closeModal("modalConfirm");
+  if(cb) cb();
+});
+
+document.getElementById("btnAddSection").addEventListener("click", function(){
+  document.getElementById("secIcone").value = "";
+  document.getElementById("secTitulo").value = "";
+  document.getElementById("secDescricao").value = "";
+  openModal("modalSection");
+});
+document.getElementById("confirmAddSection").addEventListener("click", function(){
+  const titulo = document.getElementById("secTitulo").value.trim();
+  if(!titulo){ showToast("Dê um nome para a seção."); return; }
+  const icone = document.getElementById("secIcone").value.trim() || "💬";
+  const descricao = document.getElementById("secDescricao").value.trim();
+  const newSection = {
+    id: "sec-"+uid(), icone: icone, titulo: titulo, descricao: descricao,
+    isPricing:false, varsConfig:[], vars:{}, grouped:false, messages:[]
+  };
+  data.sections.push(newSection);
+  openSections.add(newSection.id);
+  saveData();
+  closeModal("modalSection");
+  render();
+});
+
+let addMessageSectionId = null;
+function openAddMessageModal(sectionId){
+  addMessageSectionId = sectionId;
+  const section = data.sections.find(s => s.id === sectionId);
+  document.getElementById("msgTag").value = "";
+  document.getElementById("msgTexto").value = "";
+  document.getElementById("msgTokensTip").textContent = tokensHintFor(section);
+  openModal("modalMessage");
+}
+document.getElementById("confirmAddMessage").addEventListener("click", function(){
+  const section = data.sections.find(s => s.id === addMessageSectionId);
+  if(!section) return;
+  const texto = document.getElementById("msgTexto").value.trim();
+  if(!texto){ showToast("Escreva o texto da mensagem."); return; }
+  const tag = document.getElementById("msgTag").value.trim();
+  section.messages.push({id: uid(), tag: tag, text: texto, customText: null});
+  saveData();
+  closeModal("modalMessage");
+  render();
+});
+
+/* ===================== TOPO: copiar / cliente / busca ===================== */
+
+document.querySelectorAll("[data-copy]").forEach(function(btn){
+  btn.addEventListener("click", function(e){
+    e.preventDefault();
+    copyText(btn.dataset.copy);
+  });
+});
+
+document.getElementById("searchInput").addEventListener("input", function(e){
+  searchQuery = e.target.value.trim();
+  renderSections();
+});
+
+document.getElementById("btnToggleAll").addEventListener("click", function(){
+  if(openSections.size >= data.sections.length){
+    openSections = new Set();
+  } else {
+    openSections = new Set(data.sections.map(s => s.id));
+  }
+  render();
+});
+
+/* ===================== SETTINGS: export / import / reset ===================== */
+
+document.getElementById("btnSettings").addEventListener("click", function(){
+  document.querySelector("main").scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("btnExport").addEventListener("click", function(){
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const date = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = "backup-mensagens-lais-"+date+".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("Backup exportado! 📦");
+});
+
+document.getElementById("btnImport").addEventListener("click", function(){
+  document.getElementById("importFile").click();
+});
+document.getElementById("importFile").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(){
+    try{
+      const parsed = JSON.parse(reader.result);
+      if(!parsed.services || !parsed.sections) throw new Error("formato inválido");
+      confirmDialog("Importar backup", "Isso vai substituir todas as seções e mensagens atuais pelo conteúdo do arquivo. Continuar?", function(){
+        data = parsed;
+        openSections = new Set(data.sections[0] ? [data.sections[0].id] : []);
+        saveData();
+        render();
+        showToast("Backup importado! ✅");
+      });
+    }catch(err){
+      showToast("Arquivo inválido. Verifique se é um backup exportado por este app.");
+    }
+    e.target.value = "";
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById("btnReset").addEventListener("click", function(){
+  confirmDialog("Restaurar padrão", "Isso apaga suas seções, mensagens e edições, voltando tudo ao modelo original. Essa ação não pode ser desfeita.", function(){
+    data = defaultData();
+    openSections = new Set([data.sections[0].id]);
+    saveData();
+    render();
+    showToast("Tudo restaurado ao padrão.");
+  });
+});
+
+/* ===================== PWA: service worker ===================== */
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("sw.js").catch(function(){});
+  });
+}
+
+/* ===================== INIT ===================== */
+
+render();
+
+})();
+</script>
+</body>
+</html>
